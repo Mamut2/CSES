@@ -9,7 +9,7 @@ int main(){
     cin >> n;
     for(int i = 0; i < n; i++) cin >> p[i];
     sort(p, p + n);
-    for(int i = 0; i < n; i++) res += abs(p[n/2] - p[i]);
+    for(int i = 0; i < n; i++) res += abs(p[n / 2] - p[i]);
     cout << res;
     return 0;
 }
