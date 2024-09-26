@@ -2,8 +2,8 @@
 
 using namespace std;
 
-const int NMAX = 101;
-int dp[1000001][101], n, a[NMAX], nr, maxi;
+const int NMAX = 101, XMAX = 100001;
+int n, dp[NMAX][XMAX], a[NMAX], maxi, nr;
 
 int main(){
     cin >> n;
@@ -11,13 +11,12 @@ int main(){
     dp[0][0] = 1;
     for(int i = 1; i <= n; i++){
         for(int target = 0; target <= maxi; target++){
-            dp[target][i] = dp[target][i - 1];
-            int prev_sum = target - a[i];
-            if(prev_sum >= 0 && dp[prev_sum][i - 1]) dp[target][i] = 1;
+            dp[i][target] = dp[i - 1][target];
+            if(target - a[i] >= 0 && dp[i - 1][target - a[i]]) dp[i][target] = 1;
         }
     }
-    for(int i = 1; i <= 100001; i++) if(dp[i][n] > 0) nr++;
+    for(int i = 1; i <= maxi; i++) if(dp[n][i]) nr++;
     cout << nr << '\n';
-    for(int i = 1; i <= 100001; i++) if(dp[i][n] > 0) cout << i << ' ';
+    for(int i = 1; i <= maxi; i++) if(dp[n][i]) cout << i << ' ';
     return 0;
 }
