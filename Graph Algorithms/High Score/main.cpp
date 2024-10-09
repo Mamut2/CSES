@@ -35,7 +35,10 @@ int main(){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             a = edges[j].a, b = edges[j].b, w = edges[j].w;
-            if(d[b] < d[a] + w && g[b][n]) { cout << -1; return 0; }
+            if(d[b] < d[a] + w) { 
+                d[b] = d[a] + w;
+                if(g[b][n]) {cout << -1; return 0;} 
+            }
         }
     }
     cout << d[n];
