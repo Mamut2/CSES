@@ -4,23 +4,19 @@ using namespace std;
 
 typedef long long ll;
 
-const ll mod = 1e9 + 7;
+const ll mod = 1e9 + 7, two_mod_inv = 500000004;
 
-ll DivSum(ll n){
-    ll res = 0;
-    for(ll i = 1; i * i <= n; i++) 
-        res = res + i;
-        while(res >= mod) res -= mod;
-    }
-    return res;
+ll gauss(ll a, ll b){
+    return ((((a + b) % mod) * ((b - a + 1) % mod)) % mod) * two_mod_inv % mod;
 }
 
 int main(){
-    ll n, res = 0;
+    ll n, res = 0, i = 1;
     cin >> n;
-    for(int i = 1; i <= n; i++) {
-        res = (res + DivSum(i));
-        while(res >= mod) res -= mod;
+    while(i <= n){
+        ll q = n / i, next = n / q + 1;
+        res = (res + gauss(i, next - 1) * q) % mod;
+        i = next;
     }
     cout << res;
     return 0;
